@@ -9,6 +9,10 @@ final profileIcon = 'lib/assets/icons/profile_icon.svg';
 final qrIcon = 'lib/assets/icons/qr_icon.svg';
 final searchIcon = 'lib/assets/icons/search.svg';
 final phoneWithQrScannerIcon = 'lib/assets/icons/phone_with_qr_scanner.svg';
+final minusIcon = 'lib/assets/icons/Minus.svg';
+final plusIcon = 'lib/assets/icons/Plus.svg';
+final deleteIcon = 'lib/assets/icons/Delete.svg';
+
 
 //images
 final beautyBoxImage = 'lib/assets/images/beauty_box.png';

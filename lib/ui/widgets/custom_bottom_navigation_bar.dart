@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:malina/core/core.dart';
@@ -8,9 +7,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
     super.key,
     required this.onItemTapped,
     required this.currentIndex,
+    required this.onQrItemTapped,
   });
   final ValueChanged<int> onItemTapped;
   final int currentIndex;
+  final VoidCallback onQrItemTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           _buildNavItem(lentaIcon, index: 0),
           _buildNavItem(favoriteIcon, index: 1),
           _qrItem(),
-          _buildNavItem(profileIcon, index: 3),
+          _buildNavItem(profileIcon, index: 2),
           _cartItem(),
         ],
       ),
@@ -45,7 +46,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   Widget _qrItem() {
     return GestureDetector(
-      onTap: ()=>onItemTapped(2),
+      onTap: onQrItemTapped,
       child: Container(
           height: 60,
           width: 60,
@@ -74,10 +75,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
       tooltip: '',
       onSelected: onItemTapped,
       icon: _buildNavItem(
-        isActive: currentIndex==5,
+        isActive: currentIndex ==4 ,
         cartIcon,
         disabled: true,
-        index: 4,
+        index: 3,
       ),
       shape: RoundedRectangleBorder(
         // Applies rounded corners to the whole menu
@@ -86,19 +87,19 @@ class CustomBottomNavigationBar extends StatelessWidget {
       itemBuilder: (context) {
         return [
           PopupMenuItem(
-            value: 4,
+            value: 3,
             child: SizedBox(
               width: 60, // Sets the width of the menu item
               child: _buildNavItem(foodItemIcon,
-                  index: 4, disabled: false, isTransparent: true),
+                  index: 3, disabled: false, isTransparent: true),
             ),
           ),
           PopupMenuItem(
-            value: 5,
+            value: 4,
             child: SizedBox(
               width: 60,
               child: _buildNavItem(prodictIcon,
-                  index: 5, disabled: false, isTransparent: true),
+                  index: 4, disabled: false, isTransparent: true),
             ),
           ),
           PopupMenuItem(
