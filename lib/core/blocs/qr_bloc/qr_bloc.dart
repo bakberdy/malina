@@ -14,7 +14,7 @@ class QrBloc extends Bloc<QrEvent, QrState> {
         final product = ProductModel.fromJson(jsonDecode(event.qrData) as Map<String, dynamic>);
         emit(QrScanned(product: product));
       }catch(e){
-        emit(QrError('Возникли ошибки, или QR неверный ${e}'));
+        emit(QrError('Возникли ошибки, или QR неверный'));
       }
     });
     on<RefreshQR>((event, emit) {

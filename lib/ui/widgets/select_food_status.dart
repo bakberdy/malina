@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-
 import '../../core/core.dart';
 
 class SelectFoodStatusButton extends StatelessWidget {

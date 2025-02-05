@@ -81,7 +81,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
         index: 3,
       ),
       shape: RoundedRectangleBorder(
-        // Applies rounded corners to the whole menu
         borderRadius: BorderRadius.circular(50),
       ),
       itemBuilder: (context) {
@@ -89,7 +88,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           PopupMenuItem(
             value: 3,
             child: SizedBox(
-              width: 60, // Sets the width of the menu item
+              width: 60, 
               child: _buildNavItem(foodItemIcon,
                   index: 3, disabled: false, isTransparent: true),
             ),

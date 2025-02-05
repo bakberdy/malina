@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:malina/core/models/product_model.dart';
 import 'package:malina/ui/widgets/counter_widget.dart';
-
+import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../core/core.dart';
 
 class CartListView extends StatelessWidget {
@@ -15,6 +14,18 @@ class CartListView extends StatelessWidget {
   final bool isFoodCart;
   final List<Map<ProductModel, int>> products;
   final String category;
+
+  double calculateTotalSum(List<Map<ProductModel, int>> products) {
+    double totalSum = 0.0;
+
+    for (var productMap in products) {
+      productMap.forEach((product, count) {
+        totalSum += product.price * count;
+      });
+    }
+
+    return totalSum;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +78,8 @@ class CartListView extends StatelessWidget {
               shrinkWrap: true,
               itemCount: products.length,
               itemBuilder: (context, index) {
-                return _cartListItem(context, products[index].keys.first, products[index].values.first);
+                return _cartListItem(context, products[index].keys.first,
+                    products[index].values.first);
               }),
           SizedBox(
             height: isFoodCart ? 10 : 0,
@@ -97,29 +109,66 @@ class CartListView extends StatelessWidget {
           SizedBox(
             height: 15,
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: AppColors.primary,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Заказать',
+          GestureDetector(
+            onTap: () {
+              Alert(
+                context: context,
+                type: AlertType.warning,
+                title: "Оплата",
+                desc: "Вы должны оплатить ${calculateTotalSum(products)} \$",
+                buttons: [
+                  DialogButton(
+                    onPressed: () => Navigator.pop(context),
+                    color: Color.fromRGBO(0, 179, 134, 1.0),
+                    child: Text(
+                      "Назад",
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  ),
+                  DialogButton(
+                    onPressed: () {
+                      context.read<CartBloc>().add(
+                          products.first.entries.first.key.isFood
+                              ? ClearFoodCart()
+                              : ClearProductCart());
+                      Navigator.pop(context);
+                    },
+                    color: AppColors.bgColor,
+                    child: Text(
+                      "Подтвердить",
+                      style: TextStyle(
+                          color: AppColors.primary,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  )
+                ],
+              ).show();
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: AppColors.primary,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Заказать',
+                      style: TextStyle(
+                          color: AppColors.whiteTextColor,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16)),
+                  Text(
+                    '${calculateTotalSum(products)} \$',
                     style: TextStyle(
+                        height: 1.1,
                         color: AppColors.whiteTextColor,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16)),
-                Text(
-                  '32000 \$',
-                  style: TextStyle(
-                      height: 1.1,
-                      color: AppColors.whiteTextColor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400),
-                ),
-              ],
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(
@@ -146,7 +195,10 @@ class CartListView extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               color: Color(0xffF8F8F8),
             ),
-            child: Image.network(product.pictureUrl, fit: BoxFit.fitHeight,),
+            child: Image.network(
+              product.pictureUrl,
+              fit: BoxFit.fitHeight,
+            ),
           ),
         ),
         SizedBox(
@@ -158,6 +210,7 @@ class CartListView extends StatelessWidget {
             children: [
               Row(
                 mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Text(
@@ -172,7 +225,7 @@ class CartListView extends StatelessWidget {
                   Text(
                     '${product.price} \$',
                     style: TextStyle(
-                        height: 1.1,
+                        height: 1.5,
                         color: AppColors.textColor,
                         fontSize: 16,
                         fontWeight: FontWeight.w500),
@@ -196,23 +249,21 @@ class CartListView extends StatelessWidget {
                 height: 15,
               ),
               CounterWidget(
-                    onIncrement: () {
-                      context
-                          .read<CartBloc>()
-                          .add(IncrementCartItem(product: product));
-                    },
-                    onDecrement: () {
-                      context
-                          .read<CartBloc>()
-                          .add(DecrementCartItem(product: product));
-                    },
-                    onDelete: () {
-                      context.read<CartBloc>().add(product.isFood
-                          ? ClearFoodCart()
-                          : ClearProductCart());
-                    },
-                    value: count
-              )
+                  onIncrement: () {
+                    context
+                        .read<CartBloc>()
+                        .add(IncrementCartItem(product: product));
+                  },
+                  onDecrement: () {
+                    context
+                        .read<CartBloc>()
+                        .add(DecrementCartItem(product: product));
+                  },
+                  onDelete: () {
+                    context.read<CartBloc>().add(
+                        product.isFood ? ClearFoodCart() : ClearProductCart());
+                  },
+                  value: count)
             ],
           ),
         )

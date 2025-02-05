@@ -21,7 +21,9 @@ class HomeScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Column(
                   children: [
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     CustomSearchBar(),
                     SizedBox(height: 12),
                     QRCodeBanner(onTap: () {}),
@@ -49,7 +51,10 @@ class HomeScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: CategoryBar(),
-              ),SizedBox(height: 20,)
+              ),
+              SizedBox(
+                height: 20,
+              )
             ],
           ),
         ));
