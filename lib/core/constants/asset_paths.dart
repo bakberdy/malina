@@ -12,6 +12,7 @@ final phoneWithQrScannerIcon = 'lib/assets/icons/phone_with_qr_scanner.svg';
 final minusIcon = 'lib/assets/icons/Minus.svg';
 final plusIcon = 'lib/assets/icons/Plus.svg';
 final deleteIcon = 'lib/assets/icons/Delete.svg';
+final xIcon = 'lib/assets/icons/x_icon.svg';
 
 
 //images

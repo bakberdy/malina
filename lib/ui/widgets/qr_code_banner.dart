@@ -1,15 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../core/core.dart';
 
 class QRCodeBanner extends StatelessWidget {
-  const QRCodeBanner({
-    super.key,
-    required this.onTap,
-  });
-
+  const QRCodeBanner({super.key, required this.onTap});
   final VoidCallback onTap;
 
   @override

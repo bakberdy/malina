@@ -103,36 +103,18 @@ class MainRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.ProductCartScreen]
-class ProductCartRoute extends _i8.PageRouteInfo<ProductCartRouteArgs> {
-  ProductCartRoute({_i9.Key? key, List<_i8.PageRouteInfo>? children})
-    : super(
-        ProductCartRoute.name,
-        args: ProductCartRouteArgs(key: key),
-        initialChildren: children,
-      );
+class ProductCartRoute extends _i8.PageRouteInfo<void> {
+  const ProductCartRoute({List<_i8.PageRouteInfo>? children})
+    : super(ProductCartRoute.name, initialChildren: children);
 
   static const String name = 'ProductCartRoute';
 
   static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<ProductCartRouteArgs>(
-        orElse: () => const ProductCartRouteArgs(),
-      );
-      return _i5.ProductCartScreen(key: args.key);
+      return const _i5.ProductCartScreen();
     },
   );
-}
-
-class ProductCartRouteArgs {
-  const ProductCartRouteArgs({this.key});
-
-  final _i9.Key? key;
-
-  @override
-  String toString() {
-    return 'ProductCartRouteArgs{key: $key}';
-  }
 }
 
 /// generated route for

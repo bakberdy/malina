@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malina/core/core.dart';
 import 'package:malina/core/models/product_model.dart';
 import 'package:malina/ui/widgets/cart_listview.dart';
@@ -17,19 +18,20 @@ class FoodCartScreen extends StatelessWidget {
         description: 'Пицца с соусом том ям 230 гр',
         price: 250,
         pictureUrl:
-            'https://th.bing.com/th/id/R.6025cd217f7bd62c40859c33e3a01c03?rik=IFaOVth3KQAn6A&riu=http%3a%2f%2fpngimg.com%2fuploads%2fpizza%2fpizza_PNG7151.png&ehk=3DdwUhkb8np6LcabfaOep%2fLzLk19VXmGTmaZbJcfSE0%3d&risl=&pid=ImgRaw&r=0'),
+            'https://th.bing.com/th/id/R.6025cd217f7bd62c40859c33e3a01c03?rik=IFaOVth3KQAn6A&riu=http%3a%2f%2fpngimg.com%2fuploads%2fpizza%2fpizza_PNG7151.png&ehk=3DdwUhkb8np6LcabfaOep%2fLzLk19VXmGTmaZbJcfSE0%3d&risl=&pid=ImgRaw&r=0', isFood: true),
   ProductModel(
         category: 'Bellagio Coffee',
         name: 'Том ям 2',
         description: 'Пицца с соусом том ям 230 гр',
-        price: 250,
+        price: 250, isFood: true,
+        
         pictureUrl:
             'https://th.bing.com/th/id/R.6025cd217f7bd62c40859c33e3a01c03?rik=IFaOVth3KQAn6A&riu=http%3a%2f%2fpngimg.com%2fuploads%2fpizza%2fpizza_PNG7151.png&ehk=3DdwUhkb8np6LcabfaOep%2fLzLk19VXmGTmaZbJcfSE0%3d&risl=&pid=ImgRaw&r=0'),
   ProductModel(
         category: 'Bellagio Coffee',
         name: 'Том ям 3',
         description: 'Пицца с соусом том ям 230 гр',
-        price: 250,
+        price: 250, isFood: true,
         pictureUrl:
             'https://th.bing.com/th/id/R.6025cd217f7bd62c40859c33e3a01c03?rik=IFaOVth3KQAn6A&riu=http%3a%2f%2fpngimg.com%2fuploads%2fpizza%2fpizza_PNG7151.png&ehk=3DdwUhkb8np6LcabfaOep%2fLzLk19VXmGTmaZbJcfSE0%3d&risl=&pid=ImgRaw&r=0'),
   ];
@@ -69,7 +71,31 @@ class FoodCartScreen extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                CartListView(products: products, isFoodCart: true,),
+               BlocBuilder<CartBloc, CartBlocState>(
+                
+                 builder: (context, state) {
+                  if (state is! CartBlocLoaded) return SizedBox();
+            Map<String, List<Map<ProductModel, int>>> foodCart =
+                state.foodCart;
+                print('Food screen'+foodCart.toString());
+                   return ListView.builder(
+                                 physics: NeverScrollableScrollPhysics(),
+                                 shrinkWrap: true,
+                                 itemCount: foodCart.length,
+                                 itemBuilder: (context, index) {
+                                   String category = foodCart.keys.elementAt(index);
+                                   List<Map<ProductModel, int>> products =
+                                       foodCart[category] ?? [];
+                                       print('key: ${category} ${products}');
+                                   return CartListView(
+                                     products: products,
+                                     isFoodCart: true,
+                                     category: category,
+                                   );
+                                 },
+                               );
+                 },
+               ),
                 SizedBox(height: 50,),
               ],
             ),
