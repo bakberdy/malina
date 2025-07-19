@@ -1,11 +1,18 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:malina/core/blocs/cart_bloc/cart_bloc_bloc.dart';
 import 'package:malina/core/blocs/qr_bloc/qr_bloc.dart';
 import 'package:malina/core/route/app_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.white,
+    statusBarIconBrightness: Brightness.dark,
+    statusBarBrightness: Brightness.light,
+  ));
   runApp(MyApp());
 }
 

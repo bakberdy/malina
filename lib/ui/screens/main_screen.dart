@@ -9,25 +9,30 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: AutoTabsRouter(
-        routes: [HomeRoute(), FavoriteRoute(), ProfileRoute(), FoodCartRoute(), ProductCartRoute()],
-        builder: (context, child) {
-          final tabsRouter = AutoTabsRouter.of(context);
-          return Scaffold(
-            body: child,
-            bottomNavigationBar: CustomBottomNavigationBar(
-              onItemTapped: (val) {
-                tabsRouter.setActiveIndex(val);
-              },
-              currentIndex: tabsRouter.activeIndex,
-              onQrItemTapped: () {
-                context.router.push(QrScanRoute());
-              },
-            ),
-          );
-        },
-      ),
+    return AutoTabsRouter(
+      routes: [
+        HomeRoute(),
+        FavoriteRoute(),
+        ProfileRoute(),
+        FoodCartRoute(),
+        ProductCartRoute()
+      ],
+      builder: (context, child) {
+        final tabsRouter = AutoTabsRouter.of(context);
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: SafeArea(child: child),
+          bottomNavigationBar: CustomBottomNavigationBar(
+            onItemTapped: (val) {
+              tabsRouter.setActiveIndex(val);
+            },
+            currentIndex: tabsRouter.activeIndex,
+            onQrItemTapped: () {
+              context.router.push(QrScanRoute());
+            },
+          ),
+        );
+      },
     );
   }
 }

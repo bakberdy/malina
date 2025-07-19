@@ -16,32 +16,35 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
-      padding: EdgeInsets.all(0),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha((0.2 * 255).round()),
-              offset: Offset(15, 0),
-              blurRadius: 30,
-              spreadRadius: 0,
-            ),
-          ],
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(12),
-          )),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildNavItem(lentaIcon, index: 0),
-          _buildNavItem(favoriteIcon, index: 1),
-          _qrItem(),
-          _buildNavItem(profileIcon, index: 2),
-          _cartItem(),
-        ],
-      ),
-    );
+        height: 100,
+        padding: EdgeInsets.all(0),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withAlpha((0.2 * 255).round()),
+                offset: Offset(15, 0),
+                blurRadius: 30,
+                spreadRadius: 0,
+              ),
+            ],
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(12),
+            )),
+        child: SafeArea(
+            child: SizedBox(
+          height: 70,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildNavItem(lentaIcon, index: 0),
+              _buildNavItem(favoriteIcon, index: 1),
+              _qrItem(),
+              _buildNavItem(profileIcon, index: 2),
+              _cartItem(),
+            ],
+          ),
+        )));
   }
 
   Widget _qrItem() {
