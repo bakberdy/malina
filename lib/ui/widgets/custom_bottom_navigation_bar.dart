@@ -22,7 +22,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black.withAlpha((0.2 * 255).round()),
               offset: Offset(15, 0),
               blurRadius: 30,
               spreadRadius: 0,
@@ -75,7 +75,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
       tooltip: '',
       onSelected: onItemTapped,
       icon: _buildNavItem(
-        isActive: currentIndex ==4 ,
+        isActive: currentIndex == 4,
         cartIcon,
         disabled: true,
         index: 3,
@@ -88,7 +88,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           PopupMenuItem(
             value: 3,
             child: SizedBox(
-              width: 60, 
+              width: 60,
               child: _buildNavItem(foodItemIcon,
                   index: 3, disabled: false, isTransparent: true),
             ),

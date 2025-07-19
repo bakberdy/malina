@@ -6,10 +6,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:malina/core/blocs/cart_bloc/cart_bloc_bloc.dart';
-import 'package:malina/core/blocs/qr_bloc/qr_bloc.dart';
 import 'package:malina/core/core.dart';
-import 'package:malina/core/route/app_router.gr.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 
 @RoutePage()
@@ -40,7 +37,9 @@ class _QrScanScreenState extends State<QrScanScreen> {
       body: BlocListener<QrBloc, QrState>(
         listener: (context, state) {
           if (state is QrScanned) {
-            context.read<CartBloc>().add(AddToCartEvent(product: state.product));
+            context
+                .read<CartBloc>()
+                .add(AddToCartEvent(product: state.product));
             context.router.replace(
                 state.product.isFood ? FoodCartRoute() : ProductCartRoute());
           } else if (state is QrError) {
